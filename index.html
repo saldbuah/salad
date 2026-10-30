@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salad Buah - Premium Fresh & Dessert</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        vanilla: {
+                            50: '#FFFDF0',
+                            100: '#FFF9C4',
+                            200: '#FFF59D',
+                            300: '#FFF176',
+                            400: '#FFEE58',
+                        },
+                        softyellow: {
+                            50: '#FFFDF0',
+                            100: '#FFF9C4',
+                            200: '#FFF59D',
+                            300: '#FFF176',
+                            400: '#FFEE58',
+                            500: '#FBC02D',
+                            600: '#F57F17',
+                        },
+                        aestheticbrown: {
+                            50: '#F9F5F0',
+                            100: '#EFE7DE',
+                            200: '#D5C3B3',
+                            600: '#8C6D53',
+                            700: '#6E533D',
+                            800: '#4A3728',
+                            900: '#2C2016'
+                        },
+                        cream: '#FFF9C4',
+                        accent: '#E29578'
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #FFFDF0;
+            font-family: 'Poppins', sans-serif;
+            color: #4A4A4A;
+        }
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+        .custom-shadow {
+            box-shadow: 0 10px 30px -5px rgba(251, 192, 45, 0.2);
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #receipt-print-area, #receipt-print-area * {
+                visibility: visible;
+            }
+            #receipt-print-area {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="smooth-scroll flex flex-col min-h-screen bg-vanilla-50">
+
+    <!-- TOP HEADER NAVIGATION (RESTORED TOP BAR) -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-vanilla-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo & Name -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="showPage('home')">
+                    <div class="w-11 h-11 rounded-2xl bg-softyellow-100 flex items-center justify-center border-2 border-softyellow-300 shadow-sm">
+                        <i class="fa-solid fa-bowl-food text-softyellow-600 text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xl font-bold text-gray-800 tracking-wide block leading-none">Salad Buah</span>
+                        <span class="text-xs text-gray-500 tracking-wider">Fresh & Healthy</span>
+                    </div>
+                </div>
+
+                <!-- Navigation Links (Desktop) -->
+                <nav class="hidden md:flex items-center space-x-1 sm:space-x-2">
+                    <button onclick="showPage('home')" id="nav-home" class="nav-btn px-4 py-2 rounded-xl font-semibold text-sm transition text-gray-700 hover:bg-softyellow-200 hover:text-gray-900">
+                        Beranda
+                    </button>
+                    <button onclick="showPage('menu')" id="nav-menu" class="nav-btn px-4 py-2 rounded-xl font-semibold text-sm transition text-gray-700 hover:bg-softyellow-200 hover:text-gray-900">
+                        Katalog Menu
+                    </button>
+                    <button onclick="showPage('tentang')" id="nav-tentang" class="nav-btn px-4 py-2 rounded-xl font-semibold text-sm transition text-gray-700 hover:bg-softyellow-200 hover:text-gray-900">
+                        Tentang Kami
+                    </button>
+                    <button onclick="showPage('profil')" id="nav-profil" class="nav-btn px-4 py-2 rounded-xl font-semibold text-sm transition text-gray-700 hover:bg-softyellow-200 hover:text-gray-900">
+                        Profil Usaha
+                    </button>
+                </nav>
+
+                <!-- Right Action Buttons (Cart & Social) -->
+                <div class="flex items-center space-x-3">
+                    <a href="https://www.instagram.com/saladbuahmp/?__pwa=1" target="_blank" class="hidden sm:flex text-gray-600 hover:text-pink-600 text-lg p-2 transition" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    
+                    <button onclick="openCartModal()" class="relative bg-softyellow-200 hover:bg-softyellow-300 text-gray-800 px-4 py-2.5 rounded-2xl font-bold text-sm flex items-center space-x-2 transition custom-shadow">
+                        <i class="fa-solid fa-basket-shopping text-gray-700"></i>
+                        <span class="hidden sm:inline">Keranjang</span>
+                        <span id="cart-badge" class="bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold hidden">0</span>
+                    </button>
+
+                    <!-- Mobile Navigation Toggle -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="md:hidden text-gray-700 text-2xl focus:outline-none p-2">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-nav" class="hidden md:hidden bg-white border-b border-vanilla-200 px-4 pt-2 pb-4 space-y-2">
+            <button onclick="showPage('home')" class="w-full text-left px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 hover:bg-softyellow-100">
+                Beranda
+            </button>
+            <button onclick="showPage('menu')" class="w-full text-left px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 hover:bg-softyellow-100">
+                Katalog Menu
+            </button>
+            <button onclick="showPage('tentang')" class="w-full text-left px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 hover:bg-softyellow-100">
+                Tentang Kami
+            </button>
+            <button onclick="showPage('profil')" class="w-full text-left px-4 py-2.5 rounded-xl font-semibold text-sm text-gray-700 hover:bg-softyellow-100">
+                Profil Usaha
+            </button>
+        </div>
+    </header>
+
+    <!-- CONTENT SECTIONS CONTAINER -->
+    <main class="flex-grow w-full overflow-x-hidden">
+
+        <!-- ================= PAGE 1: BERANDA ================= -->
+        <section id="page-home" class="page-content">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-b from-purple-100 via-vanilla-100 to-vanilla-50 py-16 lg:py-24 overflow-hidden border-b border-vanilla-200">
+                <!-- Background Decorative Glow Effects -->
+                <div class="absolute -top-20 -left-20 w-96 h-96 bg-purple-200/60 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-softyellow-300/50 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <div class="lg:col-span-5 space-y-6 text-center lg:text-left">
+                            <div class="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-purple-200 shadow-sm">
+                                <span class="flex h-2.5 w-2.5 rounded-full bg-green-500 animate-pulse"></span>
+                                <span class="text-xs font-bold text-purple-900 uppercase tracking-wider">
+                                    <i class="fa-solid fa-fire text-amber-500 mr-1"></i> Salad Buah & Dessert No. 1
+                                </span>
+                            </div>
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight">
+                                Sensasi Manis Segar <span class="text-purple-700 underline decoration-purple-300">Penuh Nutrisi</span>
+                            </h1>
+                            <p class="text-gray-600 text-base sm:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                                Nikmati perpaduan buah segar pilihan harian, saus creamy vanila homemade spesial, dan taburan keju berkualitas tinggi yang melimpah.
+                            </p>
+                            <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-2">
+                                <button onclick="showPage('menu')" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-8 py-4 rounded-2xl shadow-xl hover:shadow-purple-200 transition transform hover:-translate-y-0.5 flex items-center justify-center space-x-3">
+                                    <i class="fa-solid fa-utensils"></i>
+                                    <span>Pesan Katalog Menu</span>
+                                </button>
+                                <button onclick="showPage('tentang')" class="bg-white hover:bg-purple-50 text-purple-900 border border-purple-200 font-bold px-8 py-4 rounded-2xl shadow-sm transition flex items-center justify-center space-x-2">
+                                    <i class="fa-solid fa-circle-info text-purple-600"></i>
+                                    <span>Cerita Kami</span>
+                                </button>
+                            </div>
+
+                            <!-- Social Proof Badges -->
+                            <div class="pt-6 border-t border-purple-200/70 flex items-center justify-center lg:justify-start space-x-6 text-xs text-gray-600">
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-truck-fast text-purple-600 text-base"></i>
+                                    <span class="font-semibold">Siap Kirim Cepat</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-shield-halved text-green-600 text-base"></i>
+                                    <span class="font-semibold">100% Buah Segar</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <i class="fa-solid fa-star text-amber-500 text-base"></i>
+                                    <span class="font-semibold">Rating 4.9/5.0</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Banner Landscape 16:9 Image with Floating Badges -->
+                        <div class="lg:col-span-7 relative w-full">
+                            <div class="relative w-full aspect-video rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1600&q=80" alt="Fresh Fruit Salad Hero" class="w-full h-full object-cover transform hover:scale-105 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center text-white">
+                                    <span class="bg-black/40 backdrop-blur-md px-4 py-2 rounded-xl text-xs font-medium border border-white/20">
+                                        <i class="fa-solid fa-leaf text-green-400 mr-1.5"></i> Tanpa Pengawet Buatan
+                                    </span>
+                                    <span class="bg-amber-500/90 backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold shadow">
+                                        Porsi Melimpah!
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Floating Badge 1 -->
+                            <div class="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-purple-100 hidden sm:flex items-center space-x-3 transform hover:scale-105 transition">
+                                <div class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center text-purple-700 text-xl font-bold">
+                                    <i class="fa-solid fa-award"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-gray-500 font-medium">Kualitas Terjamin</p>
+                                    <p class="text-sm font-extrabold text-gray-900">100% Premium Quality</p>
+                                </div>
+                            </div>
+
+                            <!-- Floating Badge 2 -->
+                            <div class="absolute -top-6 -right-6 bg-white/95 backdrop-blur-md px-4 py-3 rounded-2xl shadow-xl border border-softyellow-300 hidden sm:flex items-center space-x-3 transform hover:scale-105 transition">
+                                <div class="flex text-amber-400 text-xs space-x-0.5">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <span class="text-xs font-bold text-gray-800">100% Buah Segar Harian</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modern Statistics Counter Band -->
+            <div class="bg-white py-10 border-b border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div class="p-4 rounded-2xl bg-softyellow-50 border border-softyellow-100">
+                            <span class="block text-3xl sm:text-4xl font-extrabold text-purple-700">2023</span>
+                            <span class="text-xs font-medium text-gray-600 mt-1 block">Tahun Berdiri</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-softyellow-50 border border-softyellow-100">
+                            <span class="block text-3xl sm:text-4xl font-extrabold text-amber-600">4.9 / 5.0</span>
+                            <span class="text-xs font-medium text-gray-600 mt-1 block">Ulasan Bintang Pelanggan</span>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-softyellow-50 border border-softyellow-100">
+                            <span class="block text-3xl sm:text-4xl font-extrabold text-purple-700">100%</span>
+                            <span class="text-xs font-medium text-gray-600 mt-1 block">Buah Segar Harian</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Highlights (Mengapa Memilih Salad Buah) -->
+            <div class="py-16 bg-vanilla-50/50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <span class="text-purple-700 font-extrabold text-xs uppercase tracking-widest bg-purple-100 px-4 py-1.5 rounded-full shadow-sm">
+                            <i class="fa-solid fa-sparkles text-amber-500 mr-1"></i> Keunggulan Kami
+                        </span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-3">Mengapa Memilih Salad Buah Kami?</h2>
+                        <p class="text-gray-600 text-sm mt-2 max-w-xl mx-auto">Sensasi kelezatan istimewa dengan bahan berkualitas dan higienis tinggi.</p>
+                        <div class="w-20 h-1.5 bg-gradient-to-r from-purple-400 to-amber-400 mx-auto mt-4 rounded-full"></div>
+                    </div>
+
+                    <!-- Dynamic Visual Cards Grid with Fruit Images -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Card 1: Buah Segar -->
+                        <div class="group bg-white rounded-3xl overflow-hidden border border-softyellow-200 shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80" alt="100% Buah Segar Pilihan" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 left-4 bg-green-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-leaf text-xs"></i>
+                                    <span>100% Organik & Segar</span>
+                                </div>
+                                <div class="absolute bottom-3 left-4 text-white">
+                                    <span class="text-xs font-medium text-softyellow-200">Bahan Terbaik</span>
+                                    <h3 class="text-lg font-bold leading-snug">Buah Segar Dipetik Harian</h3>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-softyellow-50/70 flex-grow flex flex-col justify-between">
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Setiap potongan apel, anggur, melon, hingga kiwi dipilah cermat dari kebun lokal harian demi kerenyahan alami dan nutrisi penuh.
+                                </p>
+                                <div class="flex items-center text-xs font-semibold text-purple-700 group-hover:text-purple-900 transition space-x-2">
+                                    <i class="fa-solid fa-circle-check text-green-500 text-sm"></i>
+                                    <span>Tanpa Bahan Pengawet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Saus Homemade Creamy -->
+                        <div class="group bg-white rounded-3xl overflow-hidden border border-softyellow-200 shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Saus Creamy Vanila Rahasia" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 left-4 bg-amber-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+                                    <span>Resep Rahasia</span>
+                                </div>
+                                <div class="absolute bottom-3 left-4 text-white">
+                                    <span class="text-xs font-medium text-softyellow-200">Lumer & Creamy</span>
+                                    <h3 class="text-lg font-bold leading-snug">Saus Vanilla Cheese Homemade</h3>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-softyellow-50/70 flex-grow flex flex-col justify-between">
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Racikan saus creamy vanila dipadu keju melimpah buatan sendiri. Manisnya pas, gurihnya dapet, dan tidak bikin eneg di tenggorokan.
+                                </p>
+                                <div class="flex items-center text-xs font-semibold text-purple-700 group-hover:text-purple-900 transition space-x-2">
+                                    <i class="fa-solid fa-cheese text-amber-500 text-sm"></i>
+                                    <span>Topping Keju Premium</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Pengemasan & Pengiriman Cepat -->
+                        <div class="group bg-white rounded-3xl overflow-hidden border border-softyellow-200 shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                            <div class="relative h-56 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1526367790999-0150786686a2?auto=format&fit=crop&w=800&q=80" alt="Pengiriman Cepat & Kemasan Salad Buah" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                                <div class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow flex items-center space-x-1.5">
+                                    <i class="fa-solid fa-truck-fast text-xs"></i>
+                                    <span>Antar Cepat & Steril</span>
+                                </div>
+                                <div class="absolute bottom-3 left-4 text-white">
+                                    <span class="text-xs font-medium text-softyellow-200">Selalu Dingin & Segar</span>
+                                    <h3 class="text-lg font-bold leading-snug">Kemasan & Antar Cepat</h3>
+                                </div>
+                            </div>
+                            <div class="p-6 bg-softyellow-50/70 flex-grow flex flex-col justify-between">
+                                <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                                    Dikemas dalam wadah food-grade kedap udara dan dikirim dengan pendingin cepat sehingga kualitas rasa tetap terjamin sampai di tangan Anda.
+                                </p>
+                                <div class="flex items-center text-xs font-semibold text-purple-700 group-hover:text-purple-900 transition space-x-2">
+                                    <i class="fa-solid fa-truck-fast text-purple-600 text-sm"></i>
+                                    <span>Pengiriman Instan</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Showcase Menu Section -->
+            <div class="py-16 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                        <div>
+                            <span class="text-purple-700 font-extrabold text-xs uppercase tracking-widest bg-purple-100 px-3.5 py-1 rounded-full">Menu Terfavorit</span>
+                            <h2 class="text-3xl font-extrabold text-gray-900 mt-2">Pilihan Paling Banyak Dipesan</h2>
+                            <p class="text-gray-500 text-sm mt-1">Rasakan langsung kenikmatan varian bestseller kami hari ini</p>
+                        </div>
+                        <button onclick="showPage('menu')" class="mt-4 md:mt-0 text-purple-700 hover:text-purple-900 font-bold text-sm flex items-center space-x-2 transition group">
+                            <span>Lihat Semua Katalog (6 Menu)</span>
+                            <i class="fa-solid fa-arrow-right transform group-hover:translate-x-1 transition"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Preview Item 1 -->
+                        <div class="bg-vanilla-50 rounded-3xl overflow-hidden border border-vanilla-200 shadow-md hover:shadow-xl transition duration-300">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1568158879083-c42860933ed7?auto=format&fit=crop&w=600&q=80" alt="Salad Buah Premium Classic" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">Best Seller</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1">(120+ ulasan)</span>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Salad Buah Premium Classic</h3>
+                                <p class="text-xs text-gray-600 mb-4 line-clamp-2">Kombinasi apel, anggur, buah naga, melon, dan kiwi disiram saus creamy vanila dan keju melimpah.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-extrabold text-purple-700">Rp 15.000</span>
+                                    <button onclick="addToCart(1, 'Salad Buah Premium Classic', 15000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow">
+                                        + Pesan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview Item 2 -->
+                        <div class="bg-vanilla-50 rounded-3xl overflow-hidden border border-vanilla-200 shadow-md hover:shadow-xl transition duration-300">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=600&q=80" alt="Salad Buah Tropical Mango" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">Favorit</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1">(95+ ulasan)</span>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Salad Buah Tropical Mango</h3>
+                                <p class="text-xs text-gray-600 mb-4 line-clamp-2">Porsi buah mangga manis, nanas madu, dan apel dengan kuah saus keju mangga vanila segar.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-extrabold text-purple-700">Rp 18.000</span>
+                                    <button onclick="addToCart(2, 'Salad Buah Tropical Mango', 18000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow">
+                                        + Pesan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Preview Item 3 -->
+                        <div class="bg-vanilla-50 rounded-3xl overflow-hidden border border-vanilla-200 shadow-md hover:shadow-xl transition duration-300">
+                            <div class="relative h-48 overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1570145820259-b5b80c5c8bd6?auto=format&fit=crop&w=600&q=80" alt="Vanilla Melt Dessert Box" class="w-full h-full object-cover">
+                                <span class="absolute top-3 left-3 bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow">Dessert Hit</span>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1">(80+ ulasan)</span>
+                                </div>
+                                <h3 class="font-bold text-gray-900 text-lg mb-1">Vanilla Melt Dessert Box</h3>
+                                <p class="text-xs text-gray-600 mb-4 line-clamp-2">Lapisan sponge cake lembut dipadu cream vanila lumer, regal, dan cokelat putih.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-lg font-extrabold text-purple-700">Rp 20.000</span>
+                                    <button onclick="addToCart(3, 'Vanilla Melt Dessert Box', 20000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl transition shadow">
+                                        + Pesan
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Promo Banner -->
+            <div class="py-12 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-gradient-to-r from-purple-700 via-purple-600 to-indigo-700 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between">
+                        <div class="relative z-10 max-w-xl text-center lg:text-left mb-6 lg:mb-0">
+                            <span class="bg-softyellow-300 text-gray-900 font-extrabold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-4 inline-block">
+                                <i class="fa-solid fa-tag text-purple-700 mr-1"></i> Promo Spesial Hari Ini
+                            </span>
+                            <h3 class="text-2xl sm:text-4xl font-extrabold leading-tight">Siap Menikmati Kesegaran Salad Buah Kami?</h3>
+                            <p class="text-purple-100 text-sm sm:text-base mt-2">Pesan sekarang langsung secara online atau konsultasikan katering acara melalui WhatsApp resmi kami.</p>
+                        </div>
+                        <div class="relative z-10 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                            <button onclick="showPage('menu')" class="bg-softyellow-300 hover:bg-softyellow-400 text-gray-900 font-extrabold px-8 py-4 rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                <span>Pesan Sekarang</span>
+                            </button>
+                            <a href="https://wa.me/6283197388300" target="_blank" class="bg-white/10 hover:bg-white/20 text-white font-bold px-6 py-4 rounded-2xl border border-white/30 backdrop-blur-md transition flex items-center justify-center space-x-2">
+                                <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                                <span>WhatsApp Kasir</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 2: KATALOG MENU (6 ITEMS) ================= -->
+        <section id="page-menu" class="page-content hidden py-16 bg-gradient-to-br from-purple-100 via-softyellow-100 to-vanilla-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header Title -->
+                <div class="text-center mb-10">
+                    <span class="inline-block bg-white/90 backdrop-blur-md text-purple-800 font-extrabold tracking-wider uppercase text-xs px-4 py-1.5 rounded-full shadow-sm border border-purple-200">
+                        <i class="fa-solid fa-sparkles text-amber-500 mr-1.5"></i> Cita Rasa Istimewa & Higienis
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-aestheticbrown-900 mt-3 tracking-tight">Katalog Menu Kami</h2>
+                    <p class="text-gray-700 text-sm sm:text-base mt-2 font-medium max-w-xl mx-auto">Diproses higienis setiap hari dari buah segar pilihan dengan racikan saus creamy resep rahasia.</p>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-purple-500 to-amber-400 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Category Filter Tabs -->
+                <div class="flex flex-wrap justify-center gap-2.5 sm:gap-4 mb-10">
+                    <button onclick="filterMenu('all')" id="filter-all" class="menu-filter-btn px-5 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm transition-all duration-300 bg-purple-700 text-white shadow-md hover:shadow-purple-200">
+                        <i class="fa-solid fa-border-all mr-1.5"></i> Semua Menu (6)
+                    </button>
+                    <button onclick="filterMenu('salad')" id="filter-salad" class="menu-filter-btn px-5 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm transition-all duration-300 bg-white/90 text-gray-700 hover:bg-purple-100 hover:text-purple-900 border border-purple-200/70 shadow-sm">
+                        <i class="fa-solid fa-bowl-food mr-1.5 text-amber-500"></i> Salad Buah
+                    </button>
+                    <button onclick="filterMenu('dessert')" id="filter-dessert" class="menu-filter-btn px-5 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm transition-all duration-300 bg-white/90 text-gray-700 hover:bg-purple-100 hover:text-purple-900 border border-purple-200/70 shadow-sm">
+                        <i class="fa-solid fa-cake-candles mr-1.5 text-pink-500"></i> Dessert & Pudding
+                    </button>
+                    <button onclick="filterMenu('bakery')" id="filter-bakery" class="menu-filter-btn px-5 py-2.5 rounded-2xl font-extrabold text-xs sm:text-sm transition-all duration-300 bg-white/90 text-gray-700 hover:bg-purple-100 hover:text-purple-900 border border-purple-200/70 shadow-sm">
+                        <i class="fa-solid fa-bread-slice mr-1.5 text-amber-600"></i> Bakery & Pastry
+                    </button>
+                </div>
+
+                <!-- Catalog Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-14">
+                    <!-- Menu 1 -->
+                    <div class="menu-card category-salad bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1568158879083-c42860933ed7?auto=format&fit=crop&w=800&q=80" alt="Salad Buah Premium Classic" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-purple-600 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-fire text-amber-300 mr-1"></i> Best Seller
+                            </span>
+                            <span class="absolute top-4 right-4 bg-white/90 backdrop-blur-md text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow">
+                                <i class="fa-solid fa-heart text-red-500 mr-1"></i> 100% Segar
+                            </span>
+                            <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white">
+                                <span class="text-xs font-semibold bg-black/40 backdrop-blur-md px-3 py-1 rounded-lg border border-white/20">
+                                    <i class="fa-solid fa-cheese text-amber-400 mr-1"></i> Extra Keju Melimpah
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(140+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Salad Buah Premium Classic</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Potongan apel, anggur, buah naga, melon, dan kiwi disiram saus creamy vanila homemade khas & taburan keju cheddar melimpah.
+                                </p>
+                                <!-- Ingredient Tags -->
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Apel & Anggur</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Melon & Kiwi</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Saus Creamy</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 15.000</span>
+                                </div>
+                                <button onclick="addToCart(1, 'Salad Buah Premium Classic', 15000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 2 -->
+                    <div class="menu-card category-salad bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1519996529931-28324d5a630e?auto=format&fit=crop&w=800&q=80" alt="Salad Buah Tropical Mango" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-amber-500 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-sun text-yellow-200 mr-1"></i> Favorit Tropis
+                            </span>
+                            <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white">
+                                <span class="text-xs font-semibold bg-black/40 backdrop-blur-md px-3 py-1 rounded-lg border border-white/20">
+                                    <i class="fa-solid fa-lemon text-amber-300 mr-1"></i> Mangga & Nanas Madu
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(98+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Salad Buah Tropical Mango</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Perpaduan buah mangga manis harum, nanas madu segar, dan potongan apel dengan siraman dressing keju vla mangga spesial.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Mangga Manis</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Nanas Madu</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Vla Keju Mangga</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 18.000</span>
+                                </div>
+                                <button onclick="addToCart(2, 'Salad Buah Tropical Mango', 18000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 3 -->
+                    <div class="menu-card category-dessert bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1570145820259-b5b80c5c8bd6?auto=format&fit=crop&w=800&q=80" alt="Vanilla Melt Dessert Box" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-pink-500 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-heart text-white mr-1"></i> Dessert Box Hit
+                            </span>
+                            <div class="absolute bottom-3 left-4 right-4 flex justify-between items-center text-white">
+                                <span class="text-xs font-semibold bg-black/40 backdrop-blur-md px-3 py-1 rounded-lg border border-white/20">
+                                    <i class="fa-solid fa-spoon text-pink-300 mr-1"></i> Creamy & Melt
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(85+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Vanilla Melt Dessert Box</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Sponge cake empuk berlayer dengan krim vanila lumer manis pas, dipadu biskuit regal renyah dan parutan cokelat putih.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-pink-50 text-pink-700 border border-pink-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Sponge Cake</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Vanilla Cream</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Regal Crumble</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 20.000</span>
+                                </div>
+                                <button onclick="addToCart(3, 'Vanilla Melt Dessert Box', 20000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 4 -->
+                    <div class="menu-card category-dessert bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" alt="Creamy Fruit Pudding Vanilla" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-teal-600 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-snowflake mr-1"></i> Segar & Lembut
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(70+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Creamy Fruit Pudding Vanilla</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Pudding sutra halus rasa vanila susu dengan topping potongan buah peach dan cherry segar disiram fla vanila istimewa.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-teal-50 text-teal-700 border border-teal-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Pudding Sutra</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Peach & Cherry</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Fla Vanilla</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 12.000</span>
+                                </div>
+                                <button onclick="addToCart(4, 'Creamy Fruit Pudding Vanilla', 12000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 5 -->
+                    <div class="menu-card category-bakery bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=800&q=80" alt="Vanilla Custard Croissant" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-wheat-awn mr-1"></i> Fresh Bakery
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(65+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Vanilla Custard Croissant</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Pastry croissant renyah butter impor dengan isian krim vanila custard tebal yang langsung meleleh di setiap gigitan.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">French Butter</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Custard Lumer</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Crispy Flaky</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 15.000</span>
+                                </div>
+                                <button onclick="addToCart(5, 'Vanilla Custard Croissant', 15000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menu 6 -->
+                    <div class="menu-card category-bakery bg-white rounded-3xl overflow-hidden border border-purple-100 shadow-xl hover:shadow-2xl transition duration-500 transform hover:-translate-y-2 flex flex-col">
+                        <div class="relative h-56 overflow-hidden group">
+                            <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80" alt="Soft Brioche Fruit Bun" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+                            <span class="absolute top-4 left-4 bg-amber-600 text-white text-xs font-extrabold px-3.5 py-1.5 rounded-full uppercase shadow-md flex items-center space-x-1">
+                                <i class="fa-solid fa-stroopwafel mr-1"></i> Roti Soft Brioche
+                            </span>
+                        </div>
+                        <div class="p-6 flex flex-col flex-grow justify-between bg-white">
+                            <div>
+                                <div class="flex items-center space-x-1 text-amber-400 text-xs mb-2">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                    <span class="text-gray-500 font-medium ml-1.5">(50+ ulasan)</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 leading-snug">Soft Brioche Fruit Bun</h3>
+                                <p class="text-gray-600 text-xs leading-relaxed mb-4">
+                                    Roti manis brioche super empuk dengan taburan keju, kismis, dan buah kranberi kering beraroma wangi mentega.
+                                </p>
+                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Soft Brioche</span>
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Kismis & Cranberry</span>
+                                    <span class="bg-amber-50 text-amber-700 border border-amber-200/60 text-[10px] font-bold px-2.5 py-1 rounded-md">Keju Tabur</span>
+                                </div>
+                            </div>
+                            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <span class="text-xs text-gray-400 font-medium block">Harga Porsi</span>
+                                    <span class="text-xl font-extrabold text-purple-800">Rp 10.000</span>
+                                </div>
+                                <button onclick="addToCart(6, 'Soft Brioche Fruit Bun', 10000)" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs px-5 py-3 rounded-2xl transition shadow-lg hover:shadow-purple-200 flex items-center space-x-2">
+                                    <i class="fa-solid fa-cart-plus"></i>
+                                    <span>Pesan</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Call to Action Footer Box -->
+                <div class="w-full bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-800 rounded-3xl p-8 sm:p-10 text-white shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between border border-purple-300/30">
+                    <div class="relative z-10 max-w-xl text-center md:text-left mb-6 md:mb-0">
+                        <span class="bg-amber-300 text-gray-900 font-extrabold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-3 inline-block">
+                            <i class="fa-solid fa-truck-fast text-purple-800 mr-1"></i> Bebas Ongkir & Katering Acara
+                        </span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold leading-tight">Ingin Pesan Banyak untuk Acara Kantor & Pesta?</h3>
+                        <p class="text-purple-100 text-xs sm:text-sm mt-2">Dapatkan diskon khusus porsi besar dan customized box label untuk perayaan ulang tahun, rapat kantor, atau hampers istimewa.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                        <a href="https://wa.me/6283197388300?text=Halo%20Salad%20Buah,%20saya%20ingin%20tanya%20pesanan%20katering" target="_blank" class="bg-amber-300 hover:bg-amber-400 text-gray-900 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl transition shadow-lg flex items-center justify-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-lg text-green-700"></i>
+                            <span>Konsultasi WhatsApp</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 3: TENTANG SALAD BUAH ================= -->
+        <section id="page-tentang" class="page-content hidden py-16 bg-gradient-to-b from-purple-100 via-softyellow-100 to-vanilla-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header Title -->
+                <div class="text-center mb-12">
+                    <span class="inline-block bg-white/90 backdrop-blur-md text-purple-800 font-extrabold tracking-wider uppercase text-xs px-4 py-1.5 rounded-full shadow-sm border border-purple-200">
+                        <i class="fa-solid fa-heart text-red-500 mr-1.5"></i> Perjalanan & Cerita Kami
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-gray-900 mt-3 tracking-tight">Tentang Salad Buah Kami</h2>
+                    <p class="text-gray-700 text-sm sm:text-base mt-2 font-medium max-w-2xl mx-auto">Mengenal dedikasi, resep rahasia, serta perjalanan kami dalam menghadirkan kelezatan salad buah dan dessert higienis terbaik.</p>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-purple-500 to-amber-400 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Section 1: Hero Story with Side-by-Side Image & Narrative -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl border border-purple-200 p-8 sm:p-12 shadow-xl mb-12 relative overflow-hidden">
+                    <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-purple-200/40 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
+                        <div class="lg:col-span-7 space-y-5">
+                            <span class="bg-purple-100 text-purple-900 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase inline-block">
+                                <i class="fa-solid fa-seedling text-green-600 mr-1"></i> Berdiri Sejak 2023
+                            </span>
+                            <h3 class="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-snug">
+                                Berawal dari Keinginan Menikmati Camilan Sehat yang <span class="text-purple-700 underline decoration-purple-300">Benar-Benar Lezat</span>
+                            </h3>
+                            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                                Salad Buah lahir dari sebuah ide sederhana: <strong class="text-gray-800">makanan sehat tidak harus terasa hambar atau membosankan</strong>. Kami melihat banyak orang menyukai buah-buahan segar, tetapi sering kali kesulitan menemukan salad buah dengan perpaduan saus yang pas—tidak terlalu manis, tidak eneg, dan selalu konsisten segar.
+                            </p>
+                            <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                                Berangkat dari dapur rumahan pada tahun 2023, kami mencoba puluhan kali eksperimen resep saus vanila dan dressing keju hingga menemukan racikan sempurna. Kini, Salad Buah telah menjadi pilihan favorit ribuan pelanggan untuk santapan harian, acara ulang tahun, rapat kantor, hingga hampers istimewa.
+                            </p>
+                            
+                            <div class="pt-2 flex flex-wrap gap-4 text-xs font-bold text-gray-700">
+                                <div class="flex items-center space-x-2 bg-softyellow-100/80 px-3.5 py-2 rounded-xl border border-softyellow-200">
+                                    <i class="fa-solid fa-check text-green-600"></i>
+                                    <span>Potongan Buah Segar Harian</span>
+                                </div>
+                                <div class="flex items-center space-x-2 bg-softyellow-100/80 px-3.5 py-2 rounded-xl border border-softyellow-200">
+                                    <i class="fa-solid fa-check text-green-600"></i>
+                                    <span>Saus Creamy Homemade</span>
+                                </div>
+                                <div class="flex items-center space-x-2 bg-softyellow-100/80 px-3.5 py-2 rounded-xl border border-softyellow-200">
+                                    <i class="fa-solid fa-check text-green-600"></i>
+                                    <span>Tanpa Bahan Pengawet</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-5">
+                            <div class="relative w-full h-[360px] sm:h-[420px] rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1200&q=80" alt="Proses Dapur Salad Buah" class="w-full h-full object-cover transform hover:scale-105 transition duration-700">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
+                                    <span class="bg-purple-600 text-white text-[10px] font-extrabold uppercase px-3 py-1 rounded-full w-fit mb-2">Dapur Higienis</span>
+                                    <p class="font-extrabold text-lg leading-tight">Diracik dengan Cermat & Penuh Cinta</p>
+                                    <p class="text-xs text-purple-200 mt-1">Setiap mangkuk diperiksa standar kesegarannya sebelum dikirim.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Core Pillars & Values Grid -->
+                <div class="mb-14">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-gray-900">4 Pilar Utama Kualitas Kami</h3>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1">Prinsip yang selalu kami pegang teguh dalam menyajikan setiap porsi untuk Anda.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Pillar 1 -->
+                        <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="w-12 h-12 bg-purple-100 text-purple-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 shadow-sm">
+                                <i class="fa-solid fa-apple-whole"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Buah Grade-A</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Kami hanya memilih buah bernutrisi tinggi dari pemasok terpercaya. Tidak ada buah layu atau disimpan berhari-hari.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 2 -->
+                        <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 shadow-sm">
+                                <i class="fa-solid fa-blender"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Saus Rahasia Creamy</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Dibuat segar setiap pagi menggunakan racikan mayo premium, yoghurt, dan vanila asli tanpa bahan pengawet sintetik.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 3 -->
+                        <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="w-12 h-12 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 shadow-sm">
+                                <i class="fa-solid fa-hands-bubbles"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Higienis & Steril</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Seluruh proses pemotongan dan pengemasan menggunakan sarung tangan steril dan wadah food-grade kedap udara.
+                            </p>
+                        </div>
+
+                        <!-- Pillar 4 -->
+                        <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-lg hover:shadow-xl transition duration-300">
+                            <div class="w-12 h-12 bg-pink-100 text-pink-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-4 shadow-sm">
+                                <i class="fa-solid fa-truck-ramp-box"></i>
+                            </div>
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">Suhu Dingin Terjaga</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Produk disimpan di dalam chiller khusus dan dikirim secepat mungkin agar cita rasa tetap dingin segar sampai di tangan Anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Process Step-by-Step (Bagaimana Kami Menyiapkan Pesanan Anda) -->
+                <div class="bg-white/80 backdrop-blur-md rounded-3xl border border-purple-200 p-8 sm:p-12 shadow-xl mb-14">
+                    <div class="text-center mb-10">
+                        <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase">Transparansi Kualitas</span>
+                        <h3 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mt-2">Proses Pembuatan Mengutamakan Kesegaran</h3>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1">4 langkah cermat yang kami lakukan sebelum pesanan tiba di tempat Anda.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+                        <!-- Step 1 -->
+                        <div class="relative bg-vanilla-50/80 p-6 rounded-2xl border border-vanilla-200 text-center flex flex-col items-center">
+                            <span class="w-9 h-9 rounded-full bg-purple-700 text-white font-extrabold text-sm flex items-center justify-center mb-3 shadow">1</span>
+                            <h4 class="font-bold text-gray-900 text-base mb-1">Pilah Buah Segar</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Setiap pagi, buah apel, anggur, kiwi, dan mangga diperiksa tingkat kematangan dan kerenyahannya.
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="relative bg-vanilla-50/80 p-6 rounded-2xl border border-vanilla-200 text-center flex flex-col items-center">
+                            <span class="w-9 h-9 rounded-full bg-purple-700 text-white font-extrabold text-sm flex items-center justify-center mb-3 shadow">2</span>
+                            <h4 class="font-bold text-gray-900 text-base mb-1">Pencucian Steril</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Buah dicuci bersih menggunakan air mengalir steril dan cairan pencuci khusus bahan makanan alami.
+                            </p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative bg-vanilla-50/80 p-6 rounded-2xl border border-vanilla-200 text-center flex flex-col items-center">
+                            <span class="w-9 h-9 rounded-full bg-purple-700 text-white font-extrabold text-sm flex items-center justify-center mb-3 shadow">3</span>
+                            <h4 class="font-bold text-gray-900 text-base mb-1">Siraman Saus & Keju</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Dipotong presisi lalu disiram saus creamy vanila homemade dan parutan keju cheddar melimpah.
+                            </p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="relative bg-vanilla-50/80 p-6 rounded-2xl border border-vanilla-200 text-center flex flex-col items-center">
+                            <span class="w-9 h-9 rounded-full bg-purple-700 text-white font-extrabold text-sm flex items-center justify-center mb-3 shadow">4</span>
+                            <h4 class="font-bold text-gray-900 text-base mb-1">Pengemasan Instant</h4>
+                            <p class="text-gray-600 text-xs leading-relaxed">
+                                Dikemas dalam bowl kedap udara dan langsung masuk ke thermal bag pengiriman instan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Call-to-Action Banner -->
+                <div class="bg-gradient-to-r from-purple-800 via-purple-700 to-indigo-800 rounded-3xl p-8 sm:p-12 text-white shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between border border-purple-300/30">
+                    <div class="relative z-10 max-w-xl text-center lg:text-left mb-6 lg:mb-0">
+                        <span class="bg-amber-300 text-gray-900 font-extrabold text-xs px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-3 inline-block">
+                            <i class="fa-solid fa-utensils text-purple-800 mr-1"></i> Cobalah Sekarang
+                        </span>
+                        <h3 class="text-2xl sm:text-4xl font-extrabold leading-tight">Siap Merasakan Cita Rasa Salad Buah Terbaik?</h3>
+                        <p class="text-purple-100 text-xs sm:text-sm mt-2">Pesan sekarang untuk dinikmati bersama keluarga, teman kantor, atau orang tersayang.</p>
+                    </div>
+                    <div class="relative z-10 flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                        <button onclick="showPage('menu')" class="bg-amber-300 hover:bg-amber-400 text-gray-900 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-2xl transition shadow-lg flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            <span>Lihat Katalog Menu</span>
+                        </button>
+                        <a href="https://wa.me/6283197388300" target="_blank" class="bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-2xl border border-white/30 backdrop-blur-md transition flex items-center justify-center space-x-2">
+                            <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
+                            <span>Hubungi Kami</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= PAGE 4: PROFIL USAHA ================= -->
+        <section id="page-profil" class="page-content hidden py-16 bg-gradient-to-br from-purple-100 via-softyellow-100 to-vanilla-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Header Title -->
+                <div class="text-center mb-12">
+                    <span class="inline-block bg-white/90 backdrop-blur-md text-purple-800 font-extrabold tracking-wider uppercase text-xs px-4 py-1.5 rounded-full shadow-sm border border-purple-200">
+                        <i class="fa-solid fa-store text-amber-500 mr-1.5"></i> Identitas & Informasi Bisnis Resmi
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-gray-900 mt-3 tracking-tight">Profil Usaha Salad Buah MP</h2>
+                    <p class="text-gray-700 text-sm sm:text-base mt-2 font-medium max-w-2xl mx-auto">Mengenal lebih dekat operasional, legalitas, lokasi dapur, serta layanan katering & kemitraan kami.</p>
+                    <div class="w-24 h-1.5 bg-gradient-to-r from-purple-500 to-amber-400 mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <!-- Banner Status Operasional & Counter Highlight -->
+                <div class="bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-purple-200 shadow-xl mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-16 h-16 rounded-2xl bg-purple-600 text-white flex items-center justify-center text-3xl shadow-lg flex-shrink-0">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <h3 class="text-2xl font-extrabold text-gray-900">Salad Buah MP</h3>
+                                <span class="bg-green-100 text-green-700 text-[10px] font-bold px-2.5 py-0.5 rounded-full border border-green-300 flex items-center">
+                                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1.5"></span> Buka Hari Ini
+                                </span>
+                            </div>
+                            <p class="text-xs text-purple-700 font-bold uppercase tracking-wider mt-0.5">Premium Salad Buah & Dessert House</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-4 text-xs font-bold text-gray-700 w-full md:w-auto justify-start md:justify-end">
+                        <div class="bg-softyellow-100/80 px-4 py-2.5 rounded-2xl border border-softyellow-300 flex items-center space-x-2">
+                            <i class="fa-solid fa-clock text-amber-600 text-base"></i>
+                            <div>
+                                <span class="block text-[10px] text-gray-500 font-medium">Jam Buka Dapur</span>
+                                <span class="text-gray-900">09:00 - 21:00 WIB</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3 Key Achievement Stats Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                    <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-md text-center hover:shadow-xl transition">
+                        <span class="text-3xl sm:text-4xl font-extrabold text-purple-700 block">2023</span>
+                        <span class="text-xs text-gray-800 font-bold mt-1 block">Tahun Berdiri</span>
+                        <p class="text-[11px] text-gray-500 mt-1 leading-relaxed">Berawal dari dapur rumahan di tahun 2023 dengan semangat menyajikan salad buah segar berkelas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-md text-center hover:shadow-xl transition">
+                        <span class="text-3xl sm:text-4xl font-extrabold text-amber-500 block">4.9 / 5</span>
+                        <span class="text-xs text-gray-800 font-bold mt-1 block">Rating Pelanggan</span>
+                        <p class="text-[11px] text-gray-500 mt-1 leading-relaxed">Kepuasan rasa dan kualitas yang terbukti disukai pelanggan setia kami.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl border border-purple-100 shadow-md text-center hover:shadow-xl transition">
+                        <span class="text-3xl sm:text-4xl font-extrabold text-purple-700 block">100%</span>
+                        <span class="text-xs text-gray-800 font-bold mt-1 block">Jaminan Buah Segar</span>
+                        <p class="text-[11px] text-gray-500 mt-1 leading-relaxed">Buah dipetik dan dipotong segar setiap hari tanpa pemanis & pengawet buatan.</p>
+                    </div>
+                </div>
+
+                <!-- Grid Details: Left (Business Bio & Legal), Right (Map & Contact Cards) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+                    <!-- Left Column: Detailed Overview & Values -->
+                    <div class="lg:col-span-7 bg-white/95 backdrop-blur-md rounded-3xl p-8 border border-purple-200 shadow-xl space-y-6">
+                        <h3 class="text-2xl font-extrabold text-gray-900 pb-3 border-b border-gray-100 flex items-center space-x-2">
+                            <i class="fa-solid fa-building-circle-check text-purple-700"></i>
+                            <span>Tentang Usaha & Standar Mutu</span>
+                        </h3>
+                        
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            <strong class="text-gray-800">Salad Buah MP</strong> adalah brand kuliner lokal terpercaya yang mengkhususkan diri pada pembuatan salad buah segar premium, dessert box, dan bakery olahan berkualitas tinggi. Kami berkomitmen untuk selalu menghadirkan kombinasi buah terbaik dengan saus creamy vanila tanpa pengawet sintetik.
+                        </p>
+
+                        <!-- Highlights list -->
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3 p-3 rounded-2xl bg-vanilla-50 border border-vanilla-200">
+                                <div class="w-8 h-8 rounded-xl bg-purple-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Standar Kebersihan Dapur</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5">Setiap staf pengolahan wajib menggunakan apron, sarung tangan steril, dan masker medis sesuai standar higienis kuliner.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3 rounded-2xl bg-vanilla-50 border border-vanilla-200">
+                                <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-box text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">Kemasan Food-Grade Kedap Udara</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5">Kemasan ramah lingkungan dan tersegel rapat menjaga suhu dingin dan keaslian rasa selama dalam perjalanan.</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start space-x-3 p-3 rounded-2xl bg-vanilla-50 border border-vanilla-200">
+                                <div class="w-8 h-8 rounded-xl bg-green-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">
+                                    <i class="fa-solid fa-leaf text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900 text-sm">100% Buah Pilihan Harian</h4>
+                                    <p class="text-xs text-gray-600 mt-0.5">Hanya memotong buah segar pilihan di hari yang sama dengan waktu pengiriman pelanggan.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Legal Badges Row -->
+                        <div class="pt-4 border-t border-gray-100 flex flex-wrap items-center justify-between gap-4 text-xs font-bold text-gray-600">
+                            <span class="flex items-center space-x-1.5 bg-green-50 text-green-700 px-3 py-1.5 rounded-xl border border-green-200">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>100% Halal Materials</span>
+                            </span>
+                            <span class="flex items-center space-x-1.5 bg-purple-50 text-purple-700 px-3 py-1.5 rounded-xl border border-purple-200">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Tanpa Pemanis Buatan</span>
+                            </span>
+                            <span class="flex items-center space-x-1.5 bg-amber-50 text-amber-700 px-3 py-1.5 rounded-xl border border-amber-200">
+                                <i class="fa-solid fa-circle-check"></i>
+                                <span>Fresh Made Daily</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Location Map & Social Channels -->
+                    <div class="lg:col-span-5 space-y-6">
+                        <!-- Location & Map Preview Box -->
+                        <div class="bg-white/95 backdrop-blur-md rounded-3xl p-6 border border-purple-200 shadow-xl space-y-4">
+                            <h3 class="text-lg font-bold text-gray-900 flex items-center space-x-2">
+                                <i class="fa-solid fa-location-dot text-red-500"></i>
+                                <span>Lokasi Dapur Utama</span>
+                            </h3>
+                            <p class="text-xs text-gray-600">Jl. Sederhana No. 88, Medan, Sumatera Utara, Indonesia</p>
+
+                            <!-- Map Visual Embed Mock -->
+                            <div class="relative w-full h-44 rounded-2xl overflow-hidden border border-gray-200 shadow-inner bg-gray-100 flex items-center justify-center">
+                                <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" alt="Peta Lokasi Medan" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-black/30 flex flex-col items-center justify-center p-4 text-center text-white">
+                                    <div class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center text-lg mb-1 shadow-lg animate-bounce">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <span class="font-extrabold text-xs">Dapur Salad Buah MP</span>
+                                    <span class="text-[10px] text-gray-200">Medan, Sumatera Utara</span>
+                                </div>
+                            </div>
+
+                            <a href="https://maps.app.goo.gl/jztcMDFqanjaF5p46" target="_blank" class="w-full bg-softyellow-200 hover:bg-softyellow-300 text-gray-900 font-extrabold text-xs py-3 rounded-xl transition flex items-center justify-center space-x-2 border border-softyellow-300">
+                                <i class="fa-solid fa-diamond-turn-right text-purple-700"></i>
+                                <span>Petunjuk Arah Google Maps</span>
+                            </a>
+                        </div>
+
+                        <!-- Direct Social Channel Cards -->
+                        <div class="bg-gradient-to-br from-purple-800 to-indigo-900 text-white rounded-3xl p-6 shadow-xl space-y-4 border border-purple-300/30">
+                            <h3 class="text-lg font-bold flex items-center space-x-2">
+                                <i class="fa-solid fa-comments text-amber-300"></i>
+                                <span>Kanal Komunikasi Resmi</span>
+                            </h3>
+                            <p class="text-xs text-purple-100 leading-relaxed">
+                                Hubungi kami melalui kanal sosial media atau pesan WhatsApp untuk konsultasi pesanan acara.
+                            </p>
+
+                            <div class="space-y-2.5 pt-1">
+                                <a href="https://wa.me/6283197388300" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl transition flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fa-brands fa-whatsapp text-lg"></i>
+                                        <span>WhatsApp Orders (+62 831-9738-8300)</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </a>
+
+                                <a href="https://www.instagram.com/saladbuahmp/?__pwa=1" target="_blank" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl transition flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fa-brands fa-instagram text-lg"></i>
+                                        <span>Instagram (@saladbuahmp)</span>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Konsultasi & Pesanan Katering Khusus -->
+                <div class="bg-white rounded-3xl p-8 border border-purple-200 shadow-xl">
+                    <div class="max-w-2xl mx-auto text-center mb-6">
+                        <span class="bg-purple-100 text-purple-800 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase">Katering & Event</span>
+                        <h3 class="text-2xl font-extrabold text-gray-900 mt-2">Formulir Kontak & Pertanyaan Katering</h3>
+                        <p class="text-gray-600 text-xs sm:text-sm mt-1">Kirimkan pesan Anda secara langsung untuk pertanyaan katering acara, porsi khusus, atau masukan.</p>
+                    </div>
+
+                    <form onsubmit="event.preventDefault(); alert('Terima kasih! Pesan Anda telah terkirim. Tim kami akan segera menghubungi Anda melalui WhatsApp.');" class="max-w-xl mx-auto space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nama Lengkap</label>
+                                <input type="text" required placeholder="Nama Anda" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">No. WhatsApp</label>
+                                <input type="tel" required placeholder="0812xxxx" class="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Kebutuhan / Pesan Anda</label>
+                            <textarea rows="3" required placeholder="Tuliskan pertanyaan atau jumlah porsi katering yang diinginkan..." class="w-full px-4 py-3 rounded-xl border border-gray-200 text-xs focus:ring-2 focus:ring-purple-500 focus:outline-none"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-purple-700 hover:bg-purple-800 text-white font-extrabold text-xs py-3.5 rounded-xl shadow-lg transition flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Kirim Pesan Sekarang</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-900 text-white py-10 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-purple-600 flex items-center justify-center text-white text-xl">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-bold block leading-none">Salad Buah</span>
+                        <span class="text-xs text-gray-400">Fresh & Healthy Dessert Store</span>
+                    </div>
+                </div>
+                <div class="text-xs text-gray-400">
+                    &copy; 2026 Salad Buah. Hak Cipta Dilindungi.
+                </div>
+                <div class="flex space-x-4 text-lg">
+                    <a href="https://www.instagram.com/saladbuahmp/?__pwa=1" target="_blank" class="text-gray-400 hover:text-pink-500 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/6283197388300" target="_blank" class="text-gray-400 hover:text-green-500 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CART & PAYMENT MODAL -->
+    <div id="cart-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-purple-100 flex flex-col max-h-[90vh]">
+            <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-basket-shopping text-purple-700 text-xl"></i>
+                    <h3 class="text-xl font-bold text-gray-900">Keranjang & Pembayaran</h3>
+                </div>
+                <button onclick="closeCartModal()" class="text-gray-400 hover:text-gray-600 text-2xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Cart List Container -->
+            <div id="cart-items" class="overflow-y-auto space-y-3 flex-grow pr-1 mb-4">
+                <!-- Cart items will be rendered dynamically here -->
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div class="border-t border-gray-100 pt-4 mb-4">
+                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Pilih Metode Pembayaran:</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <button type="button" onclick="selectPayment('QRIS')" id="pay-qris" class="payment-btn p-2.5 rounded-xl border-2 border-purple-600 bg-purple-50 text-xs font-bold text-purple-900 text-center flex flex-col items-center justify-center">
+                        <i class="fa-solid fa-qrcode text-lg mb-1 text-purple-700"></i>
+                        <span>QRIS Scan</span>
+                    </button>
+                    <button type="button" onclick="selectPayment('Cash')" id="pay-cash" class="payment-btn p-2.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-700 text-center flex flex-col items-center justify-center hover:bg-purple-50">
+                        <i class="fa-solid fa-money-bill-wave text-lg mb-1 text-green-600"></i>
+                        <span>Tunai / Cash</span>
+                    </button>
+                </div>
+
+                <!-- Payment Details Sub-Box -->
+                <div id="payment-info-box" class="mt-3 p-3 rounded-2xl bg-softyellow-50 border border-softyellow-200 text-xs text-gray-700">
+                    <p class="font-bold text-purple-900 mb-1"><i class="fa-solid fa-qrcode mr-1"></i> Scan QRIS All Payment:</p>
+                    <p class="text-[11px] text-gray-600 mb-2">Scan menggunakan GoPay, OVO, Dana, ShopeePay, BCA, Mandiri, dll.</p>
+                    <div class="w-32 h-32 mx-auto bg-white p-2 rounded-xl shadow-inner border flex items-center justify-center">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SALADBUAH-MP-PAYMENT" alt="QRIS Code" class="w-full h-full object-contain">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary & Actions -->
+            <div class="border-t border-gray-100 pt-3 space-y-3">
+                <div class="flex items-center justify-between text-base font-extrabold text-gray-900">
+                    <span>Total Pembayaran:</span>
+                    <span id="cart-total" class="text-xl text-purple-800">Rp 0</span>
+                </div>
+                <button onclick="generateReceiptModal()" class="w-full bg-aestheticbrown-800 hover:bg-aestheticbrown-900 text-white font-extrabold py-3.5 rounded-2xl shadow-lg transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-receipt text-amber-300"></i>
+                    <span>Cetak Struk Pembayaran</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- STRUK PEMBAYARAN MODAL (THEME WARNA COKLAT AESTHETIC) -->
+    <div id="receipt-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 hidden overflow-y-auto">
+        <div class="bg-aestheticbrown-50 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border-2 border-aestheticbrown-600 text-aestheticbrown-900 flex flex-col relative">
+            
+            <!-- Close Receipt Modal Button -->
+            <button onclick="closeReceiptModal()" class="absolute top-4 right-4 text-aestheticbrown-600 hover:text-aestheticbrown-900 text-2xl p-1">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <!-- PRINTABLE RECEIPT CONTENT AREA -->
+            <div id="receipt-print-area" class="bg-white p-6 rounded-2xl border border-aestheticbrown-200 shadow-inner font-mono text-xs space-y-4">
+                <!-- Header Struk -->
+                <div class="text-center pb-3 border-b-2 border-dashed border-aestheticbrown-300 space-y-1">
+                    <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-aestheticbrown-800 text-amber-100 text-lg mb-1">
+                        <i class="fa-solid fa-bowl-food"></i>
+                    </div>
+                    <h3 class="font-bold text-base text-aestheticbrown-900 tracking-wider">SALAD BUAH MP</h3>
+                    <p class="text-[10px] text-gray-500">Jl. Sederhana No. 88, Medan</p>
+                    <p class="text-[10px] text-gray-500">Telp: +62 831-9738-8300</p>
+                </div>
+
+                <!-- Metadata Transaksi -->
+                <div class="space-y-1 text-[11px] text-gray-600 pb-3 border-b border-dashed border-aestheticbrown-200">
+                    <div class="flex justify-between">
+                        <span>No. Struk:</span>
+                        <span id="receipt-id" class="font-bold text-gray-800">#SB-0000</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Tanggal:</span>
+                        <span id="receipt-date" class="font-bold text-gray-800">--/--/----</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Metode Bayar:</span>
+                        <span id="receipt-method" class="font-bold text-aestheticbrown-800">QRIS</span>
+                    </div>
+                </div>
+
+                <!-- Items List Struk -->
+                <div class="space-y-2 py-1">
+                    <div class="font-bold text-gray-700 pb-1 border-b border-gray-100 flex justify-between">
+                        <span>ITEM</span>
+                        <span>TOTAL</span>
+                    </div>
+                    <div id="receipt-items-list" class="space-y-1.5">
+                        <!-- Dynamic Receipt Items -->
+                    </div>
+                </div>
+
+                <!-- Total Rincian Struk -->
+                <div class="pt-3 border-t-2 border-dashed border-aestheticbrown-300 space-y-1 text-xs">
+                    <div class="flex justify-between text-gray-600">
+                        <span>Subtotal:</span>
+                        <span id="receipt-subtotal">Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-gray-600">
+                        <span>Pajak Resto (0%):</span>
+                        <span>Rp 0</span>
+                    </div>
+                    <div class="flex justify-between text-sm font-extrabold text-aestheticbrown-900 pt-1 border-t border-gray-100">
+                        <span>TOTAL LUNAS:</span>
+                        <span id="receipt-grandtotal" class="text-aestheticbrown-800">Rp 0</span>
+                    </div>
+                </div>
+
+                <!-- Footer Struk -->
+                <div class="text-center pt-3 border-t border-dashed border-aestheticbrown-200 text-[10px] text-gray-500 space-y-1">
+                    <p class="font-bold text-gray-700">*** TERIMA KASIH ***</p>
+                    <p>Selamat menikmati kesegaran Salad Buah MP!</p>
+                </div>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="mt-6">
+                <button onclick="window.print()" class="w-full bg-aestheticbrown-800 hover:bg-aestheticbrown-900 text-white font-extrabold py-3.5 rounded-2xl shadow transition flex items-center justify-center space-x-2 text-xs">
+                    <i class="fa-solid fa-print text-sm"></i>
+                    <span>Cetak / Simpan Struk</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APP LOGIC -->
+    <script>
+        // Shopping Cart & Payment State
+        let cart = [];
+        let selectedPaymentMethod = 'QRIS';
+
+        // Page Navigation Controller
+        function showPage(pageId) {
+            // Hide all sections
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Show selected section
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.remove('hidden');
+            }
+
+            // Update Navigation Button Active Styles
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-softyellow-200', 'text-gray-900');
+                btn.classList.add('text-gray-700');
+            });
+
+            const activeBtn = document.getElementById('nav-' + pageId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-softyellow-200', 'text-gray-900');
+            }
+
+            // Close mobile menu if open
+            const mobileNav = document.getElementById('mobile-nav');
+            if (mobileNav) {
+                mobileNav.classList.add('hidden');
+            }
+
+            // Scroll to top smooth
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobile-nav');
+            if (mobileNav) {
+                mobileNav.classList.toggle('hidden');
+            }
+        }
+
+        // Calculate Cart Total Helper
+        function getCartTotal() {
+            return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+        }
+
+        // Payment Method Selection
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            const buttons = document.querySelectorAll('.payment-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('border-2', 'border-purple-600', 'bg-purple-50', 'text-purple-900');
+                btn.classList.add('border-gray-200', 'bg-white', 'text-gray-700');
+            });
+
+            const infoBox = document.getElementById('payment-info-box');
+
+            if (method === 'QRIS') {
+                const btn = document.getElementById('pay-qris');
+                if (btn) btn.classList.add('border-2', 'border-purple-600', 'bg-purple-50', 'text-purple-900');
+                if (infoBox) {
+                    infoBox.innerHTML = `
+                        <p class="font-bold text-purple-900 mb-1"><i class="fa-solid fa-qrcode mr-1"></i> Scan QRIS All Payment:</p>
+                        <p class="text-[11px] text-gray-600 mb-2">Scan menggunakan GoPay, OVO, Dana, ShopeePay, BCA, Mandiri, dll.</p>
+                        <div class="w-32 h-32 mx-auto bg-white p-2 rounded-xl shadow-inner border flex items-center justify-center">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SALADBUAH-MP-PAYMENT" alt="QRIS Code" class="w-full h-full object-contain">
+                        </div>
+                    `;
+                }
+            } else if (method === 'Cash') {
+                const btn = document.getElementById('pay-cash');
+                if (btn) btn.classList.add('border-2', 'border-purple-600', 'bg-purple-50', 'text-purple-900');
+                if (infoBox) {
+                    infoBox.innerHTML = `
+                        <p class="font-bold text-purple-900 mb-1"><i class="fa-solid fa-money-bill-wave mr-1"></i> Pembayaran Tunai (Cash):</p>
+                        <p class="text-[11px] text-gray-600">Pembayaran dilakukan secara langsung di kasir atau secara COD saat pesanan diterima.</p>
+                    `;
+                }
+            }
+        }
+
+        // Category Filter Logic for Catalog Page
+        function filterMenu(category) {
+            const items = document.querySelectorAll('.menu-card');
+            const buttons = document.querySelectorAll('.menu-filter-btn');
+
+            // Reset Filter Button Styles
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-purple-700', 'text-white', 'shadow-md');
+                btn.classList.add('bg-white/90', 'text-gray-700', 'border', 'border-purple-200/70', 'shadow-sm');
+            });
+
+            // Highlight Active Filter Button
+            const activeBtn = document.getElementById('filter-' + category);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-white/90', 'text-gray-700', 'border', 'border-purple-200/70', 'shadow-sm');
+                activeBtn.classList.add('bg-purple-700', 'text-white', 'shadow-md');
+            }
+
+            // Show/Hide Menu Items
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains('category-' + category)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Add Item to Cart Handler
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.qty += 1;
+            } else {
+                cart.push({ id, name, price, qty: 1 });
+            }
+            updateCartUI();
+            openCartModal();
+        }
+
+        // Update Cart UI & Badges
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartBadge = document.getElementById('cart-badge');
+            const cartTotal = document.getElementById('cart-total');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const totalPrice = getCartTotal();
+
+            // Update Badge
+            if (cartBadge) {
+                if (totalItems > 0) {
+                    cartBadge.textContent = totalItems;
+                    cartBadge.classList.remove('hidden');
+                } else {
+                    cartBadge.classList.add('hidden');
+                }
+            }
+
+            // Update Total Price Text
+            if (cartTotal) {
+                cartTotal.textContent = 'Rp ' + totalPrice.toLocaleString('id-ID');
+            }
+
+            // Render Cart Items
+            if (cartItemsContainer) {
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = `
+                        <div class="text-center py-8 text-gray-400">
+                            <i class="fa-solid fa-basket-shopping text-4xl mb-2 text-gray-300"></i>
+                            <p class="text-sm">Keranjang Anda masih kosong.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center justify-between p-3 rounded-2xl bg-vanilla-50 border border-vanilla-200">
+                        <div class="flex-grow pr-2">
+                            <h4 class="font-bold text-gray-800 text-sm">${item.name}</h4>
+                            <span class="text-xs text-purple-700 font-extrabold">Rp ${item.price.toLocaleString('id-ID')}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="changeQty(${item.id}, -1)" class="w-7 h-7 rounded-lg bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold text-sm flex items-center justify-center transition">-</button>
+                            <span class="font-bold text-sm text-gray-800 w-5 text-center">${item.qty}</span>
+                            <button onclick="changeQty(${item.id}, 1)" class="w-7 h-7 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm flex items-center justify-center transition">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Change Quantity Handler
+        function changeQty(id, delta) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.qty += delta;
+                if (item.qty <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        // Cart Modal Open/Close Controls
+        function openCartModal() {
+            const modal = document.getElementById('cart-modal');
+            if (modal) {
+                modal.classList.remove('hidden');
+            }
+            updateCartUI();
+        }
+
+        function closeCartModal() {
+            const modal = document.getElementById('cart-modal');
+            if (modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        // Generate Printable Brown Struk Modal
+        function generateReceiptModal() {
+            if (cart.length === 0) {
+                alert('Keranjang Anda masih kosong! Tambahkan menu terlebih dahulu.');
+                return;
+            }
+
+            const total = getCartTotal();
+            const receiptId = '#SB-' + Math.floor(1000 + Math.random() * 9000);
+            const dateNow = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+
+            document.getElementById('receipt-id').textContent = receiptId;
+            document.getElementById('receipt-date').textContent = dateNow;
+            document.getElementById('receipt-method').textContent = selectedPaymentMethod === 'Cash' ? 'Cash (Tunai)' : 'QRIS';
+
+            let subtotal = 0;
+            const itemsList = document.getElementById('receipt-items-list');
+            itemsList.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.qty;
+                subtotal += itemTotal;
+                return `
+                    <div class="flex justify-between items-start text-[11px]">
+                        <div>
+                            <p class="font-bold text-gray-800">${item.name}</p>
+                            <p class="text-gray-500">${item.qty} x Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <span class="font-bold text-gray-800">Rp ${itemTotal.toLocaleString('id-ID')}</span>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('receipt-subtotal').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
+            document.getElementById('receipt-grandtotal').textContent = 'Rp ' + subtotal.toLocaleString('id-ID');
+
+            closeCartModal();
+            document.getElementById('receipt-modal').classList.remove('hidden');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        // Initialize default view
+        window.addEventListener('DOMContentLoaded', () => {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
